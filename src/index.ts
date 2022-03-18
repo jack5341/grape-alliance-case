@@ -9,14 +9,15 @@ import { Wine } from "./entities/product";
 
 var DB: Wine[] = [];
 
-(async () => {
+app.use(async (req, res, next) => {
     // Initilaze and get DB
     DB = (await getStore().catch((err) => {
         logger.error(err);
     })) as Wine[];
 
-    console.log(DB);
-})();
+    logger.info(`DB is initialized with ${DB.length} records`);
+    next();
+});
 
 app.get("/", (req, res) => {
     res.send(DB);
