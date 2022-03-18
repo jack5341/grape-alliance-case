@@ -5,10 +5,14 @@ import { Wine } from "../entities/product";
 
 export function getStore() {
     return new Promise<Wine[]>((resolve, reject) => {
+        const DB: Wine[] = [];
         fs.createReadStream("./db/product.csv", "utf8")
             .pipe(csv())
             .on("data", (data) => {
-                resolve(data);
+                DB.push(data);
+            })
+            .on("end", () => {
+                resolve(DB);
             })
             .on("error", (err) => {
                 reject(err);
