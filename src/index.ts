@@ -2,21 +2,26 @@
 import express from "express";
 const app = express();
 
-// Controllers
-import getRelated from "./controllers/related";
-import getWines from "./controllers/wines";
+// Routes
+import Wines from "./routes/wines";
 
-// Utils
+// Constants
 import CONSTANTS from "./constants/contants";
+
+// Logger
 import { logger } from "./logger/logger";
+
+// Database connection
 import { runDB } from "./utils/db";
+import bodyParser from "body-parser";
 
 // Run DB init function
 (async () => await runDB())();
 
-app.get("/wines", getWines);
-
-app.get("/wine/:id/related", getRelated);
+// Middlewares
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(Wines);
 
 app.listen(CONSTANTS.PORT, () => {
     console.log(`listening on port ${CONSTANTS.PORT}`);
