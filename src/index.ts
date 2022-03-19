@@ -4,12 +4,12 @@ const app = express();
 
 // Controllers
 import getRelated from "./controllers/related";
+import getWines from "./controllers/wines";
 
 // Utils
 import CONSTANTS from "./constants/contants";
 import { logger } from "./logger/logger";
 import { runDB } from "./utils/db";
-import getWines from "./controllers/wines";
 
 // Run DB init function
 (async () => await runDB())();
