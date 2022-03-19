@@ -1,11 +1,16 @@
+// Third parties imports
 import express from "express";
+import { Request, Response } from "express-serve-static-core";
 const app = express();
 
+// Utils
 import CONSTANTS from "./constants/contants";
 import { logger } from "./logger/logger";
 import { getStore } from "./utils/getStore";
 
+// Entities
 import { Wine } from "./entities/product";
+import { ReqQuery } from "./entities/express";
 
 var DB: Wine[] = [];
 
@@ -19,27 +24,7 @@ app.use(async (req, res, next) => {
     next();
 });
 
-app.get("/", (req, res) => {
-    const queries = {
-        country: req.query.country as string,
-        winary: req.query.winary as string,
-        color: req.query.color as string,
-    };
-
-    switch (queries) {
-        default:
-            res.status(400).send("missing query");
-            break;
-    }
-});
-
-app.post("/wine", (req, res) => {
-    const wine = req.body as Wine;
-    DB.push(wine);
-    res.status(200).send(wine);
-});
-
-app.get("/wines", (req, res) => {
+app.get("/wines", (req: Request<ReqQuery>, res: Response) => {
     const { title, country, winery, color } = req.query;
 
     if (title) {

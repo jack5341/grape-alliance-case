@@ -1,3 +1,5 @@
+import { Query, Response } from "express-serve-static-core";
+
 export enum closureEnum {
     natureCork = "nature cork",
     syntheticCork = "synthetic cork",
