@@ -12,17 +12,18 @@ import { getStore } from "./utils/getStore";
 import { Wine } from "./entities/product";
 import { ReqQuery } from "./entities/express";
 
+// In-memory database
 var DB: Wine[] = [];
 
-app.use(async (req, res, next) => {
-    // Initilaze and get DB
+async function initializeDB() {
     DB = (await getStore().catch((err) => {
         logger.error(err);
     })) as Wine[];
 
     logger.info(`DB is initialized with ${DB.length} records`);
-    next();
-});
+}
+
+initializeDB();
 
 app.get("/wines", (req: Request<ReqQuery>, res: Response) => {
     const { title, country, winery, color } = req.query;
