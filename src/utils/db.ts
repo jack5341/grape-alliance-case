@@ -3,7 +3,7 @@ import csv from "csv-parser";
 
 import { Wine } from "../entities/product";
 
-export function getStore() {
+export function initDB() {
     return new Promise<Wine[]>((resolve, reject) => {
         const DB: Wine[] = [];
         fs.createReadStream("./db/product.csv", "utf8")

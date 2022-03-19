@@ -6,7 +6,7 @@ const app = express();
 // Utils
 import CONSTANTS from "./constants/contants";
 import { logger } from "./logger/logger";
-import { getStore } from "./utils/getStore";
+import { initDB } from "./utils/db";
 
 // Entities
 import { Wine } from "./entities/product";
@@ -16,7 +16,7 @@ import { ReqQuery } from "./entities/express";
 var DB: Wine[] = [];
 
 async function initializeDB() {
-    DB = (await getStore().catch((err) => {
+    DB = (await initDB().catch((err) => {
         logger.error(err);
     })) as Wine[];
 
