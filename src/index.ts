@@ -84,6 +84,38 @@ app.get("/wines", (req: Request<ReqQuery>, res: Response) => {
     return;
 });
 
+app.get("/wine/:id/related", (req: Request<ReqQuery>, res: Response) => {
+    const { id } = req.params;
+
+    if (!id) {
+        logger.error("id is required arg");
+        res.status(400).send();
+        return;
+    }
+
+    let foundWine = DB.find((wine) => id === wine.id);
+    logger.info(`wine ${id} is searched`);
+
+    if (!foundWine) {
+        logger.error(`wine ${id} is not found`);
+        res.status(404).send("not found");
+        return;
+    }
+
+    logger.info(`found ${foundWine.id}`);
+
+    let getRelatedWines: Wine[] = DB.filter((wine) => wine.grapes === foundWine?.grapes);
+
+    if (getRelatedWines.length === 0) {
+        logger.error(`related wines is not found`);
+        res.status(404).send("not found");
+        return;
+    }
+
+    res.send(getRelatedWines);
+    return;
+});
+
 app.listen(CONSTANTS.PORT, () => {
     console.log(`listening on port ${CONSTANTS.PORT}`);
     logger.info(`${CONSTANTS.SERVICE_NAME} is listening on port ${CONSTANTS.PORT}`);
