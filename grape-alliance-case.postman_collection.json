@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "965bbd22-757b-4a30-83e7-137e6af19bef",
+		"name": "grape-alliance-case",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Related Wines",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://grape-alliance-case.herokuapp.com/wine/076e0b0a-a547-4ad7-a1d3-887657d2002f/related",
+					"protocol": "https",
+					"host": [
+						"grape-alliance-case",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"wine",
+						"076e0b0a-a547-4ad7-a1d3-887657d2002f",
+						"related"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Wine",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://grape-alliance-case.herokuapp.com/wines",
+					"protocol": "https",
+					"host": [
+						"grape-alliance-case",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"wines"
+					],
+					"query": [
+						{
+							"key": "color",
+							"value": "white",
+							"disabled": true
+						},
+						{
+							"key": "color ",
+							"value": "red",
+							"disabled": true
+						},
+						{
+							"key": "country",
+							"value": "IT",
+							"disabled": true
+						},
+						{
+							"key": "country",
+							"value": "DE",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "Thanisch Hochgewächs Riesling 2020",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "Bretz Portugieser Rosé mild 1,0l 2019",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
