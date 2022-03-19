@@ -2,8 +2,21 @@ import fs from "fs";
 import csv from "csv-parser";
 
 import { Wine } from "../entities/product";
+import { logger } from "../logger/logger";
 
-export function initDB() {
+// In-memory storage
+export var DB: Wine[] = [];
+
+// Run DB init function
+export async function runDB() {
+    DB = (await initDB().catch((err) => {
+        logger.error(err);
+    })) as Wine[];
+
+    logger.info(`DB is initialized with ${DB.length} records`);
+}
+
+function initDB() {
     return new Promise<Wine[]>((resolve, reject) => {
         const DB: Wine[] = [];
         fs.createReadStream("./db/product.csv", "utf8")
@@ -19,3 +32,5 @@ export function initDB() {
             });
     });
 }
+
+runDB();
