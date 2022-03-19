@@ -1,9 +1,7 @@
 // Third parties imports
 import express from "express";
+import bodyParser from "body-parser";
 const app = express();
-
-// Routes
-import Wines from "./routes/wines";
 
 // Constants
 import CONSTANTS from "./constants/contants";
@@ -11,9 +9,11 @@ import CONSTANTS from "./constants/contants";
 // Logger
 import { logger } from "./logger/logger";
 
+// Routes
+import Wines from "./routes/wines";
+
 // Database connection
 import { runDB } from "./utils/db";
-import bodyParser from "body-parser";
 
 // Run DB init function
 (async () => await runDB())();
@@ -23,7 +23,10 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(Wines);
 
-app.listen(CONSTANTS.PORT, () => {
+// Start server
+const server = app.listen(CONSTANTS.PORT, () => {
     console.log(`listening on port ${CONSTANTS.PORT}`);
     logger.info(`${CONSTANTS.SERVICE_NAME} is listening on port ${CONSTANTS.PORT}`);
 });
+
+export default server;

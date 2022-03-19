@@ -4,18 +4,14 @@ import { Request, Response } from "express-serve-static-core";
 import { ReqQuery } from "../entities/express";
 import { Wine } from "../entities/product";
 
-// Utils
+// Logger
 import { logger } from "../logger/logger";
+
+// DB
 import { DB } from "../utils/db";
 
 export default async function getRelated(req: Request<ReqQuery>, res: Response) {
     const { id } = req.params;
-
-    if (!id) {
-        logger.error("id is required arg");
-        res.status(400).send();
-        return;
-    }
 
     let foundWine = DB.find((wine) => id === wine.id);
     logger.info(`wine ${id} is searched`);
@@ -30,7 +26,7 @@ export default async function getRelated(req: Request<ReqQuery>, res: Response) 
 
     let getRelatedWines: Wine[] = DB.filter((wine) => wine.grapes === foundWine?.grapes);
 
-    if (getRelatedWines.length === 0) {
+    if (getRelatedWines.length < 1) {
         logger.error(`related wines is not found`);
         res.status(404).send("not found");
         return;

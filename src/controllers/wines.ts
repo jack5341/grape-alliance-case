@@ -3,7 +3,11 @@ import { Request, Response } from "express-serve-static-core";
 
 // Entities
 import { ReqQuery } from "../entities/express";
+
+// Logger
 import { logger } from "../logger/logger";
+
+// DB
 import { DB } from "../utils/db";
 
 export default function getWines(req: Request<ReqQuery>, res: Response) {

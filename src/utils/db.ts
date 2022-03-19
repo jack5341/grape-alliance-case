@@ -1,7 +1,10 @@
 import fs from "fs";
 import csv from "csv-parser";
 
+// Entities
 import { Wine } from "../entities/product";
+
+// Logger
 import { logger } from "../logger/logger";
 
 // In-memory storage
@@ -11,6 +14,7 @@ export var DB: Wine[] = [];
 export async function runDB() {
     DB = (await initDB().catch((err) => {
         logger.error(err);
+        throw err;
     })) as Wine[];
 
     logger.info(`DB is initialized with ${DB.length} records`);

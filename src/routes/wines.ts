@@ -5,7 +5,7 @@ const router = Router();
 import getRelated from "../controllers/related";
 import getWines from "../controllers/wines";
 
-router.get("/wines", getWines);
+router.get("/wine", getWines);
 
 router.get("/wine/:id/related", getRelated);
 
