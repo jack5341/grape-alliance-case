@@ -1,0 +1,99 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Grape Alliance Case",
+        "version": "1.1.0",
+        "contact": {
+            "email": "nedim.akar53411@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        },
+        {
+            "url": "https://grape-alliance-case.herokuapp.com/"
+        }
+    ],
+    "paths": {
+        "/wine": {
+            "get": {
+                "description": "Getting wines by country, color and winery",
+                "parameters": [
+                    {
+                        "name": "wine_title",
+                        "in": "query",
+                        "description": "Getting one wine by title",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "wine_country",
+                        "in": "query",
+                        "description": "Getting wine list by country",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "wine_winery",
+                        "in": "query",
+                        "description": "Getting wine list by winery",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "wine_color",
+                        "in": "query",
+                        "description": "Getting wine list by color",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/wine/{id}/related": {
+            "get": {
+                "description": "Getting related wines by wine id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Getting related wines by title",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    }
+}

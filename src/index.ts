@@ -1,6 +1,11 @@
 // Third parties imports
 import express from "express";
 import bodyParser from "body-parser";
+import swaggerUI from "swagger-ui-express";
+import cors from "cors";
+
+// Document
+import swaggerDocument from "../swagger.json";
 const app = express();
 
 // Constants
@@ -19,8 +24,10 @@ import { runDB } from "./utils/db";
 (async () => await runDB())();
 
 // Middlewares
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(Wines);
 
 // Start server

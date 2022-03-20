@@ -26,7 +26,7 @@ export default async function getRelated(req: Request<ReqQuery>, res: Response) 
 
     let getRelatedWines: Wine[] = DB.filter((wine) => wine.grapes === foundWine?.grapes);
 
-    if (getRelatedWines.length < 1) {
+    if (getRelatedWines.length <= 1) {
         logger.error(`related wines is not found`);
         res.status(404).send("not found");
         return;

@@ -39,6 +39,13 @@ export default function getWines(req: Request<ReqQuery>, res: Response) {
         }
 
         logger.info(`found ${foundWine.length}`);
+
+        if (foundWine.length <= 1) {
+            logger.error(`wine ${country} is not found`);
+            res.status(404).send("not found");
+            return;
+        }
+
         res.send(foundWine);
         return;
     }
@@ -54,11 +61,19 @@ export default function getWines(req: Request<ReqQuery>, res: Response) {
         }
 
         logger.info(`found ${foundWine.length}`);
+
+        if (foundWine.length <= 1) {
+            logger.error(`wine ${color} is not found`);
+            res.status(404).send("not found");
+            return;
+        }
+
         res.send(foundWine);
         return;
     }
 
     if (winery) {
+        // This is not return yet becasue winery is not in csv file
         logger.error("winery is not supported");
         res.status(400).send("winery query is not supported");
         return;
