@@ -5,7 +5,7 @@ import swaggerUI from "swagger-ui-express";
 import cors from "cors";
 
 // Document
-import swaggerDocument from "../swagger.json";
+import swaggerDocument from "./docs/swagger.json";
 const app = express();
 
 // Constants
