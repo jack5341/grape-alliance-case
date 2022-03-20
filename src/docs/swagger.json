@@ -25,7 +25,7 @@
                 "description": "Getting wines by country, color and winery",
                 "parameters": [
                     {
-                        "name": "wine_title",
+                        "name": "title",
                         "in": "query",
                         "description": "Getting one wine by title",
                         "required": false,
@@ -34,7 +34,7 @@
                         }
                     },
                     {
-                        "name": "wine_country",
+                        "name": "country",
                         "in": "query",
                         "description": "Getting wine list by country",
                         "required": false,
@@ -43,7 +43,7 @@
                         }
                     },
                     {
-                        "name": "wine_winery",
+                        "name": "winery",
                         "in": "query",
                         "description": "Getting wine list by winery",
                         "required": false,
@@ -52,7 +52,7 @@
                         }
                     },
                     {
-                        "name": "wine_color",
+                        "name": "color",
                         "in": "query",
                         "description": "Getting wine list by color",
                         "required": false,
