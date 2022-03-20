@@ -2,7 +2,7 @@
 import { Request, Response } from "express-serve-static-core";
 
 // Entities
-import { ReqQuery } from "../entities/express";
+import { WineQuery } from "../entities/express";
 
 // Logger
 import { logger } from "../logger/logger";
@@ -10,8 +10,11 @@ import { logger } from "../logger/logger";
 // DB
 import { DB } from "../utils/db";
 
-export default function getWines(req: Request<ReqQuery>, res: Response) {
-    const { title, country, winery, color } = req.query;
+export default function getWines(req: Request<{}, {}, {}, WineQuery>, res: Response) {
+    const { title, country, winery, color, page, limit } = req.query;
+
+    const pageCount = page ? parseInt(page) : 1;
+    const limitPage = limit ? parseInt(limit) : 10;
 
     if (title) {
         let foundWine = DB.find((wine) => title === wine.title);
@@ -29,7 +32,11 @@ export default function getWines(req: Request<ReqQuery>, res: Response) {
     }
 
     if (country) {
-        let foundWine = DB.filter((wine) => country === wine.country);
+        let foundWine =
+            pageCount && limitPage
+                ? DB.filter((wine) => country === wine.country).slice(pageCount * limitPage, pageCount * limitPage + limitPage)
+                : DB.filter((wine) => country === wine.country);
+
         logger.info(`wine ${country} is searched`);
 
         if (!foundWine) {
@@ -51,7 +58,11 @@ export default function getWines(req: Request<ReqQuery>, res: Response) {
     }
 
     if (color) {
-        let foundWine = DB.filter((wine) => color === wine.color);
+        let foundWine =
+            pageCount && limitPage
+                ? DB.filter((wine) => color === wine.color).slice(pageCount * limitPage, pageCount * limitPage + limitPage)
+                : DB.filter((wine) => color === wine.color);
+
         logger.info(`wine ${color} is searched`);
 
         if (!foundWine) {

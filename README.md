@@ -72,12 +72,14 @@ To run tests, run the following command
   GET /wine?${query}
 ```
 
-| Parameter | Type     | Description            |
-| :-------- | :------- | :--------------------- |
-| `title`   | `string` | Wine title             |
-| `country` | `string` | Country of manufacture |
-| `color`   | `string` | Color of wine          |
-| `winery`  | `string` | Winery of wine         |
+| Parameter | Type     | Description                 |
+| :-------- | :------- | :-------------------------- |
+| `title`   | `string` | Wine title                  |
+| `country` | `string` | Country of manufacture      |
+| `color`   | `string` | Color of wine               |
+| `winery`  | `string` | Winery of wine              |
+| `page`    | `string` | Page counter for pagination |
+| `limit`   | `string` | Limit per page              |
 
 ## Environment Variables
 

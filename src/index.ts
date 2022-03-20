@@ -1,12 +1,13 @@
 // Third parties imports
 import express from "express";
+const app = express();
+
 import bodyParser from "body-parser";
 import swaggerUI from "swagger-ui-express";
 import cors from "cors";
 
 // Document
 import swaggerDocument from "./docs/swagger.json";
-const app = express();
 
 // Constants
 import CONSTANTS from "./constants/contants";

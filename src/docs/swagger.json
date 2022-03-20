@@ -59,6 +59,24 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Pagination by page",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit per page",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {

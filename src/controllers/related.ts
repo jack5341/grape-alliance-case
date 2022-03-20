@@ -1,7 +1,7 @@
 import { Request, Response } from "express-serve-static-core";
 
 // Entities
-import { ReqQuery } from "../entities/express";
+import { RelatedQuery } from "../entities/express";
 import { Wine } from "../entities/product";
 
 // Logger
@@ -10,8 +10,11 @@ import { logger } from "../logger/logger";
 // DB
 import { DB } from "../utils/db";
 
-export default async function getRelated(req: Request<ReqQuery>, res: Response) {
-    const { id } = req.params;
+export default async function getRelated(req: Request<RelatedQuery>, res: Response) {
+    const { id, page, limit } = req.params;
+
+    const pageCount = page ? parseInt(page) : 1;
+    const limitPage = limit ? parseInt(limit) : 10;
 
     let foundWine = DB.find((wine) => id === wine.id);
     logger.info(`wine ${id} is searched`);
@@ -24,7 +27,10 @@ export default async function getRelated(req: Request<ReqQuery>, res: Response) 
 
     logger.info(`found ${foundWine.id}`);
 
-    let getRelatedWines: Wine[] = DB.filter((wine) => wine.grapes === foundWine?.grapes);
+    let getRelatedWines: Wine[] =
+        pageCount && limitPage
+            ? DB.filter((wine) => wine.grapes === foundWine?.grapes)
+            : DB.filter((wine) => wine.grapes === foundWine?.grapes).slice(pageCount * limitPage, pageCount * limitPage + limitPage);
 
     if (getRelatedWines.length <= 1) {
         logger.error(`related wines is not found`);
